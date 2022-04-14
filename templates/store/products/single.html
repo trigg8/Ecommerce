@@ -32,7 +32,7 @@
                         <div class="row p-3">
                             <div class="col-6">
                                 <label for="select">
-                                    Qty
+                                    Quantity
                                 </label>
                                 <select id="select">
                                     <option value="">
@@ -47,11 +47,29 @@
                                     <option value="">
                                         4
                                     </option>
+                                    <option value="">
+                                        5
+                                    </option>
+                                    <option value="">
+                                        6
+                                    </option>
+                                    <option value="">
+                                        7
+                                    </option>
+                                    <option value="">
+                                        8
+                                    </option>
+                                    <option value="">
+                                        9
+                                    </option>
+                                    <option value="">
+                                        10
+                                    </option>
                                 </select>
                             </div>
                             <div class="col-6 text-end">
-                                <button type="button" class="btn btn-secondary btn-sm">
-                                    Add to basket
+                                <button type="button" class="btn btn-secondary btn-sm" id="add-button" value="{{ product.id }}">
+                                    Add to Cart
                                 </button>
                             </div>
                         </div>
@@ -61,4 +79,8 @@
         </div>
     </main>
 </div>
+
+
+
+
 {% endblock %}
