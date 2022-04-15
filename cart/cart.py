@@ -20,8 +20,10 @@ class Cart():
         '''
         product_id = str(product.id)
 
-        if product_id not in self.cart:
-            self.cart[product_id] = {'price': str(product.price), 'qty':int(qty)}
+        if product_id in self.cart:
+            self.cart[product_id]['qty'] = qty
+        else:
+            self.cart[product_id] = {'price': str(product.price), 'qty': qty}
 
         self.save()
 
@@ -67,6 +69,17 @@ class Cart():
         self.save()
 
     
+    def update(self, product, qty):
+        '''
+        Update values in session data
+        '''
+        product_id = str(product)
+
+        if product_id in self.cart:
+            self.cart[product_id]['qty'] = qty
+        
+        self.save()
+
     def save(self):
         self.session.modified = True
         
