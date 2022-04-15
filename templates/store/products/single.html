@@ -35,34 +35,34 @@
                                     Quantity
                                 </label>
                                 <select id="select">
-                                    <option value="">
+                                    <option value="1">
                                         1
                                     </option>
-                                    <option value="">
+                                    <option value="2">
                                         2
                                     </option>
-                                    <option value="">
+                                    <option value="3">
                                         3
                                     </option>
-                                    <option value="">
+                                    <option value="4">
                                         4
                                     </option>
-                                    <option value="">
+                                    <option value="5">
                                         5
                                     </option>
-                                    <option value="">
+                                    <option value="6">
                                         6
                                     </option>
-                                    <option value="">
+                                    <option value="7">
                                         7
                                     </option>
-                                    <option value="">
+                                    <option value="8">
                                         8
                                     </option>
-                                    <option value="">
+                                    <option value="9">
                                         9
                                     </option>
-                                    <option value="">
+                                    <option value="10">
                                         10
                                     </option>
                                 </select>
@@ -81,6 +81,24 @@
 </div>
 
 
-
+<script>
+    $(document).on('click', '#add-button', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart:cart_add" %}',
+            data: {
+                productid: $('#add-button').val(),
+                productqty: $('#select option:selected').text(),
+                csrfmiddlewaretoken: "{{csrf_token}}",
+                action: "post"
+            },
+            success: function (json) {
+                document.getElementById("cart-qty").innerHTML = json.qty
+            },
+            error: function (xhr, errmsg, err) {}
+        });
+    })
+</script>
 
 {% endblock %}
