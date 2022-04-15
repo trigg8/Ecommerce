@@ -18,12 +18,12 @@ class Cart():
         '''
         Adding and updating the users cart session data
         '''
-        product_id = product.id
+        product_id = str(product.id)
 
         if product_id not in self.cart:
             self.cart[product_id] = {'price': str(product.price), 'qty':int(qty)}
 
-        self.session.modified = True
+        self.save()
 
 
     def __iter__(self):
@@ -53,3 +53,20 @@ class Cart():
 
     def get_total_price(self):
         return sum(Decimal(item['price']) * item['qty'] for item in self.cart.values())
+
+
+    def delete(self, product):
+        '''
+        Delete item from session data
+        '''
+        product_id = str(product)
+
+        if product_id in self.cart:
+            del self.cart[product_id]
+        
+        self.save()
+
+    
+    def save(self):
+        self.session.modified = True
+        
