@@ -1,1 +1,37 @@
-Dashboard
+{% extends "../../store/base.html" %}
+{% load static %}
+
+{% block title %}
+    User Dashboard
+{% endblock %}
+
+{% block content %}
+
+<main>
+    <div class="container" style="max-width: 1000px;">
+        <div class="col-12">
+            <h1 class="h2">
+                Your Dashboard
+            </h1>
+        </div>
+        <div class="col-12 d-flex justify-content-between">
+            <div>
+                Manage your <b>Orders</b> and personal information.
+            </div>
+            <div>
+                <a href="">
+                    Change Details
+                </a>
+            </div>
+        </div>
+        <hr> 
+    </div>
+    <div class="container">
+
+
+
+    </div>
+</main>
+
+
+{% endblock %}
