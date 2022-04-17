@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-6ggg^_e3!e!()x6!t+40cpnh*=yhpw_c*7tqnl1efwhu-r1f6a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     'store',
     'cart',
     'account',
+    'payment',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -117,6 +119,10 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
+# Cart session ID
+CART_SESSION_ID = 'cart'
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -129,3 +135,9 @@ LOGIN_URL = '/account/login/'
 
 # Email Setting
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Stripe Payment
+PUBLISHABLE_KEY = 'pk_test_51Ko5u1D4NxbVuROuuz9qoHZBAGBTpwJVxvhOhiDVartA0NFiizFAZEzvbXIzGUT5PHfBXbVJRgRCWNXLzSPNTSmK00wCQHQqIa'
+SECRET_KEY = 'sk_test_51Ko5u1D4NxbVuROubVBlwAdjMQEUSbwZ5mor4MpWlcRkJ303lQueG8vOm7EwvbFVkYKBIOHd4JqywYrf21O4sldk00RP2nJnWL'
+
+STRIPE_ENDPOINT_SECRET = 'whsec_6022eee00d2e0a6b15e39f1f03fae548642114f56f01957e786816fa701166d5'
