@@ -12,6 +12,7 @@ import os
 
 from cart.cart import Cart
 from orders.views import payment_confirmation
+from orders.models import Order
 
 
 def order_placed(request):
