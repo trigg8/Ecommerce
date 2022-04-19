@@ -5,11 +5,22 @@ import stripe
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
+from django.views.generic.base import TemplateView
 
+import os
 
 from cart.cart import Cart
 from orders.views import payment_confirmation
 
+
+def order_placed(request):
+    cart = Cart(request)
+    cart.clear()
+    return render(request, 'payment/orderplaced.html')
+
+class Error(TemplateView):
+    template_name = 'payment/error.html'
 
 @login_required
 def CartView(request):
@@ -20,7 +31,7 @@ def CartView(request):
     total = total.replace('.', '')
     total = int(total)
 
-    stripe.api_key = 'sk_test_51Ko5u1D4NxbVuROubVBlwAdjMQEUSbwZ5mor4MpWlcRkJ303lQueG8vOm7EwvbFVkYKBIOHd4JqywYrf21O4sldk00RP2nJnWL'
+    stripe.api_key = settings.STRIPE_SECRET_KEY
 
     intent = stripe.PaymentIntent.create(
         amount = total,
@@ -28,7 +39,7 @@ def CartView(request):
         metadata = {'userid': request.user.id}
     )
 
-    return render(request, 'payment/home.html', {'client_secret': intent.client_secret})
+    return render(request, 'payment/payment_form.html', {'client_secret': intent.client_secret, 'STRIPE_PUBLISHABLE_KEY': os.environ.get("STRIPE_PUBLISHABLE_KEY")})
 
 
 @csrf_exempt
@@ -50,7 +61,3 @@ def stripe_webhook(request):
 
     return HttpResponse(status=200)
 
-def order_placed(request):
-    cart = Cart(request)
-    cart.clear()
-    return render(request, 'payment/orderplaced.html')
