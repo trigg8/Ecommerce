@@ -1,6 +1,9 @@
 from pathlib import Path
 import os
 from django.urls import reverse
+import django_on_heroku
+import dj_database_url
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -15,7 +18,7 @@ SECRET_KEY = 'django-insecure-6ggg^_e3!e!()x6!t+40cpnh*=yhpw_c*7tqnl1efwhu-r1f6a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -36,6 +39,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -70,12 +74,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+DATABASES = {'default': dj_database_url.config(default="sqlite:///db.sqlite3", conn_max_age=600, ssl_require=False)}
 
 
 # Password validation
@@ -119,6 +118,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 # Cart session ID
 CART_SESSION_ID = 'cart'
 
@@ -141,3 +142,6 @@ os.environ.setdefault('STRIPE_PUBLISHABLE_KEY', 'pk_test_51Ko5u1D4NxbVuROuuz9qoH
 STRIPE_SECRET_KEY = 'sk_test_51Ko5u1D4NxbVuROubVBlwAdjMQEUSbwZ5mor4MpWlcRkJ303lQueG8vOm7EwvbFVkYKBIOHd4JqywYrf21O4sldk00RP2nJnWL'
 
 STRIPE_ENDPOINT_SECRET = 'whsec_6022eee00d2e0a6b15e39f1f03fae548642114f56f01957e786816fa701166d5'
+
+
+django_on_heroku.settings(locals())
