@@ -35,12 +35,14 @@ INSTALLED_APPS = [
     'account',
     'payment',
     'orders',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -145,3 +147,5 @@ STRIPE_ENDPOINT_SECRET = 'whsec_6022eee00d2e0a6b15e39f1f03fae548642114f56f01957e
 
 
 django_on_heroku.settings(locals())
+
+CORS_ORIGIN_ALLOW_ALL = True
