@@ -37,7 +37,7 @@ form.addEventListener('submit', function(ev) {
 
     $.ajax({
         type: "POST",
-        url: 'http://127.0.0.1:8000/orders/add/',
+        url: 'https://tanner-django-ecommerce.herokuapp.com/orders/add/',
         data: {
           order_key: clientsecret,
           csrfmiddlewaretoken: CSRF_TOKEN,
@@ -68,7 +68,7 @@ form.addEventListener('submit', function(ev) {
                 // execution. Set up a webhook or plugin to listen for the
                 // payment_intent.succeeded event that handles any business critical
                 // post-payment actions.
-                window.location.replace("http://127.0.0.1:8000/payment/orderplaced/");
+                window.location.replace("https://tanner-django-ecommerce.herokuapp.com/payment/orderplaced/");
               }
             }
           });
