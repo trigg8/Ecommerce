@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-Tanner's Ecommerce
+  Tanner's Ecommerce
 {% endblock %}
 
 {% block content %}
@@ -31,18 +31,22 @@ Tanner's Ecommerce
         {% else %}
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
           {% for product in products %}
+          
           <div class="col">
-            <div class="card border-0">
+            <div class="card border-1">
+              <a class="text-dark text-decoration-none" href="{{ product.get_absolute_url }}">
               <img class="img-fluid" alt="Responsive image" src="{{ product.image.url }}">
-              <div class="card-body px-0">
+              <div class="card-body px-2">
                 <p class="card-text">
                   <a class="text-dark text-decoration-none"
                     href="{{ product.get_absolute_url }}">{{ product.title|slice:":50" }}...</a>
                 </p>
                 <div class="fw-bold">${{product.price}}</div>
               </div>
+              </a>
             </div>
           </div>
+          
           {% endfor %}
         </div>
         {% endif %}
